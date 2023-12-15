@@ -25,3 +25,21 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+
+## What is this?
+
+A simple way to track boardgames and when they were played. Mostly a way to learn angular 15.
+
+## Roadmap
+
+[ ] List of known boardgames
+[ ] Save in LocalStorage for now
+[ ] Add a boardgame
+[ ] Remove a boardgame
+[ ] Edit a boardgame
+[ ] Link to BGG?
+[ ] List of play sessions (a date, game, players, and winner)
+[ ] Save in LocalStorage for now
+[ ] Add a session
+[ ] Remove a session
+[ ] Edit a session

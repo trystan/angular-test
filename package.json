@@ -1,6 +1,7 @@
 {
   "name": "boardgame-tracker",
-  "version": "0.0.0",
+  "description": "A simple way to track boardgames and when they were played. Mostly a way to learn angular 15.",
+  "version": "0.1.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",

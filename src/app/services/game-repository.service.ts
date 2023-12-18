@@ -23,4 +23,10 @@ export class GameRepositoryService {
   getGame(id: number): Game | null {
     return this.games.find(g => g.id === id) ?? null
   }
+
+  addGame(newGame: { title: string }): Game {
+    const game: Game = { id: this.games.length, title: newGame.title }
+    this.games.push(game)
+    return game
+  }
 }

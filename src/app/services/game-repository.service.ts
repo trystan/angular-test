@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Game } from '../models/game';
 
 @Injectable({
   providedIn: 'root'
@@ -22,9 +23,4 @@ export class GameRepositoryService {
   getGame(id: number): Game | null {
     return this.games.find(g => g.id === id) ?? null
   }
-}
-
-export interface Game {
-  id: number
-  title: string
 }

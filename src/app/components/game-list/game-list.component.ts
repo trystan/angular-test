@@ -1,7 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
-import { Game, GameRepositoryService } from '../game-repository.service';
+import { GameRepositoryService } from '../../services/game-repository.service';
+import { Game } from 'src/app/models/game';
 
 @Component({
   selector: 'app-game-list',

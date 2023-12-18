@@ -1,7 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { GameRepositoryService } from '../game-repository.service';
-import { CommonModule } from '@angular/common';
+import { GameRepositoryService } from '../../services/game-repository.service';
 
 interface Game { id: number; title: string; }
 

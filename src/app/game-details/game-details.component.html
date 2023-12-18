@@ -1,1 +1,6 @@
-<p>{{ game.title }}</p>
+<div *ngIf="game == null">
+  <p>No game selected</p>
+</div>
+<div *ngIf="game !== null">
+  <p>{{ game.title }}</p>
+</div>

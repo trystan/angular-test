@@ -1,4 +1,4 @@
 <p>Games</p>
 <div *ngFor="let game of games">
-  <div><a [routerLink]="['/game', game.id]">{{ game.title }}</a></div>
+  <div><a [routerLink]="['/game', game.id]" routerLinkActive="active">{{ game.title }}</a></div>
 </div>

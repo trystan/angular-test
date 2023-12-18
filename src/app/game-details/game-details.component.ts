@@ -1,33 +1,26 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { GameRepositoryService } from '../game-repository.service';
+import { CommonModule } from '@angular/common';
 
 interface Game { id: number; title: string; }
 
 @Component({
   selector: 'app-game-details',
-  standalone: true,
   templateUrl: './game-details.component.html',
   styleUrls: ['./game-details.component.css']
 })
 export class GameDetailsComponent implements OnInit {
-  public game = games[0]
+  public game: Game | null = null
 
   constructor(
-      private activatedRoute: ActivatedRoute) {
+      private activatedRoute: ActivatedRoute,
+      private repo: GameRepositoryService) {
   }
 
   ngOnInit() {
-    this.activatedRoute.params.subscribe((data: any) => {
-      this.game = games[data.id]
+    this.activatedRoute.params.subscribe((params: any) => {
+      this.game = this.repo.getGame(parseInt(params.id, 10))
     })
   }
 }
-
-const games = [
-  { id: 0, title: 'Cosmic Encounter' },
-  { id: 1, title: 'For Sale' },
-  { id: 2, title: 'Gravwell' },
-  { id: 3, title: 'Root' },
-  { id: 4, title: 'Inis' },
-  { id: 5, title: 'Terraforming Mars' },
-]

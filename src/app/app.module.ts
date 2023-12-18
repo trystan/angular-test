@@ -8,15 +8,15 @@ import { GameListComponent } from "./game-list/game-list.component";
 
 @NgModule({
     declarations: [
-        AppComponent,
-        GameDetailsComponent
+        AppComponent
     ],
     providers: [],
     bootstrap: [AppComponent],
     imports: [
         BrowserModule,
         AppRoutingModule,
-        GameListComponent
+        GameListComponent,
+        GameDetailsComponent
     ]
 })
 export class AppModule { }

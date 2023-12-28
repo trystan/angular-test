@@ -1,0 +1,8 @@
+<div *ngIf="game == null">
+  <p>No game selected</p>
+</div>
+<div *ngIf="game !== null">
+  <form [formGroup]="myForm" (ngSubmit)="onSubmit(myForm)">
+    Title <input formControlName="title" />
+  </form>  
+</div>

@@ -3,4 +3,5 @@
 </div>
 <div *ngIf="game !== null">
   <h2>{{ game.title }}</h2>
+  <a [routerLink]="['/games', game.id, 'edit']">edit</a>
 </div>

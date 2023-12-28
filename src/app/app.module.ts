@@ -7,12 +7,14 @@ import { GameDetailsComponent } from './components/game-details/game-details.com
 import { GameListComponent } from "./components/game-list/game-list.component";
 import { AddGameComponent } from './components/add-game/add-game.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { GameDetailsEditComponent } from './components/game-details-edit/game-details-edit.component';
 
 @NgModule({
     declarations: [
         AppComponent,
         GameDetailsComponent,
-        AddGameComponent
+        AddGameComponent,
+        GameDetailsEditComponent
     ],
     providers: [],
     bootstrap: [AppComponent],

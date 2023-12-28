@@ -41,4 +41,12 @@ export class GameRepositoryService {
     this.games$.next(this.games)
     return game
   }
+
+  updateGame(game: Game): void {
+    const index = this.games.findIndex(g => g.id === game.id)
+    if (index > -1) {
+      this.games.splice(index, 1, game)
+      this.games$.next(this.games)
+    }
+  }
 }

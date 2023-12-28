@@ -33,15 +33,16 @@ A simple way to track boardgames and when they were played. Mostly a way to lear
 ## Roadmap
 
 [x] List of known boardgames
-[ ] View boardgame
-[ ] Add a boardgame
-[ ] Remove a boardgame
-[ ] Edit a boardgame
+[x] View boardgame
+[x] Add a boardgame
+[x] Remove a boardgame
+[x] Edit a boardgame
 [ ] Save in LocalStorage for now
 [ ] Link to BGG?
-[ ] List of play sessions (a date, game, players, and winner)
-[ ] View session
-[ ] Add a session
-[ ] Remove a session
-[ ] Edit a session
+[x] List of play sessions (a date, game, players, and winner)
+[ ] Add all session details
+[x] View session
+[x] Add a session
+[x] Remove a session
+[x] Edit a session
 [ ] Save in LocalStorage for now

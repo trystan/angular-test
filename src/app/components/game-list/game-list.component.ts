@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { GameRepositoryService } from '../../services/game-repository.service';
 import { Game } from 'src/app/models/game';
+import { Observable, of } from 'rxjs';
 
 @Component({
   selector: 'app-game-list',
@@ -12,13 +13,12 @@ import { Game } from 'src/app/models/game';
   styleUrls: ['./game-list.component.css']
 })
 export class GameListComponent implements OnInit {
-  public games: Game[] = []
+  public games$: Observable<Game[]> = of([])
 
   constructor(private repo: GameRepositoryService) {
-
   }
 
   ngOnInit(): void {
-      this.games = this.repo.getGames()
+    this.games$ = this.repo.getGames()
   }
 }

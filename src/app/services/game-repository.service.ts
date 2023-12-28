@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Game } from '../models/game';
+import { Observable, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GameRepositoryService {
-  private games: Game[] = [
+  private games = [
     { id: 0, title: 'Cosmic Encounter' },
     { id: 1, title: 'For Sale' },
     { id: 2, title: 'Gravwell' },
@@ -14,10 +15,19 @@ export class GameRepositoryService {
     { id: 5, title: 'Terraforming Mars' },
   ]
 
-  constructor() { }
+  private games$ = new Subject<Game[]>()
 
-  getGames(): Game[] {
-    return [ ...this.games ] // don't let the caller modify the data
+  constructor() {
+    // HACK: Not sure why this didn't work without setTimeout. But I don't feel
+    // too bad since if this was a real service this would be async and rely on
+    // a REST endpoint or something.
+    setTimeout(() => {
+      this.games$.next(this.games)
+    }, 1)
+  }
+
+  getGames(): Observable<Game[]> {
+    return this.games$
   }
 
   getGame(id: number): Game | null {
@@ -25,8 +35,10 @@ export class GameRepositoryService {
   }
 
   addGame(newGame: { title: string }): Game {
-    const game: Game = { id: this.games.length, title: newGame.title }
+    const maxId = Math.max.apply(Math, this.games.map(g => g.id))
+    const game: Game = { id: maxId + 1, title: newGame.title }
     this.games.push(game)
+    this.games$.next(this.games)
     return game
   }
 }

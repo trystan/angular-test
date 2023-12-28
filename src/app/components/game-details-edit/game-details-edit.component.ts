@@ -22,6 +22,7 @@ export class GameDetailsEditComponent {
   ngOnInit() {
     this.myForm = new FormGroup({
       title: new FormControl(''),
+      starRating: new FormControl(1),
       notes: new FormControl('')
     });
 
@@ -29,6 +30,7 @@ export class GameDetailsEditComponent {
       this.game = this.repo.getGame(parseInt(params.id, 10))
       this.myForm = new FormGroup({
         title: new FormControl(this.game!.title),
+        starRating: new FormControl(this.game!.starRating),
         notes: new FormControl(this.game!.notes)
       });
     })
@@ -39,6 +41,7 @@ export class GameDetailsEditComponent {
       this.repo.updateGame({
         id: this.game!.id,
         title: form.value.title,
+        starRating: form.value.starRating,
         notes: form.value.notes
       })
       this.router.navigate(['games', this.game!.id]);

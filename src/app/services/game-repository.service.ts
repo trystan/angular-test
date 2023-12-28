@@ -7,17 +7,17 @@ import { Observable, Subject } from 'rxjs';
 })
 export class GameRepositoryService {
   private games = [
-    { id: 0, title: 'Cosmic Encounter',
+    { id: 0, title: 'Cosmic Encounter', starRating: 5,
       notes: 'Our favorite game!' },
-    { id: 1, title: 'For Sale',
+    { id: 1, title: 'For Sale', starRating: 5,
       notes: 'A fast game that anyone can play.' },
-    { id: 2, title: 'Gravwell',
+    { id: 2, title: 'Gravwell', starRating: 4,
       notes: 'A really neat racing game where everyone tries to second guess what everyone else will do.' },
-    { id: 3, title: 'Root',
+    { id: 3, title: 'Root', starRating: 2,
       notes: 'Asymetric dudes on a map.' },
-    { id: 4, title: 'Inis',
+    { id: 4, title: 'Inis', starRating: 3,
       notes: 'Trippy artwork.' },
-    { id: 5, title: 'Terraforming Mars',
+    { id: 5, title: 'Terraforming Mars', starRating: 5,
       notes: 'Terraform mars.' },
   ]
 

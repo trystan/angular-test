@@ -1,5 +1,6 @@
 <form [formGroup]="myForm" (ngSubmit)="onSubmit(myForm)">
   Title <input formControlName="title" />
+  <ngb-rating formControlName="starRating" [max]="5" [readonly]="false"></ngb-rating>
   <hr >
   Notes:
   <div>

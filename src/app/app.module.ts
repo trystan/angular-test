@@ -8,6 +8,7 @@ import { GameListComponent } from "./components/game-list/game-list.component";
 import { AddGameComponent } from './components/add-game/add-game.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { GameDetailsEditComponent } from './components/game-details-edit/game-details-edit.component';
+import { NgbRatingModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
     declarations: [
@@ -22,7 +23,8 @@ import { GameDetailsEditComponent } from './components/game-details-edit/game-de
         BrowserModule,
         AppRoutingModule,
         GameListComponent,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        NgbRatingModule
     ]
 })
 export class AppModule { }

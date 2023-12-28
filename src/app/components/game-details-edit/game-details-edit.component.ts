@@ -46,6 +46,6 @@ export class GameDetailsEditComponent {
 
   deleteGame(): void {
     this.repo.deleteGame(this.game!.id)
-    this.router.navigate([])
+    this.router.navigate(['/'])
   }
 }

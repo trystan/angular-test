@@ -1,13 +1,12 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { GameRepositoryService } from '../../services/game-repository.service';
-
-interface Game { id: number; title: string; }
+import { Game } from 'src/app/models/game';
 
 @Component({
   selector: 'app-game-details',
   templateUrl: './game-details.component.html',
-  styleUrls: ['./game-details.component.css']
+  styleUrls: ['./game-details.component.scss']
 })
 export class GameDetailsComponent implements OnInit {
   public game: Game | null = null

@@ -4,6 +4,9 @@
 <div *ngIf="game !== null">
   <form [formGroup]="myForm" (ngSubmit)="onSubmit(myForm)">
     Title <input formControlName="title" />
-    <button (click)="deleteGame()">delete</button>
+    <div>
+      <button>submit</button>
+      <button type="button" (click)="deleteGame()">delete</button>
+    </div>
   </form>  
 </div>

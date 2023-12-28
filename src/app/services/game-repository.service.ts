@@ -42,7 +42,7 @@ export class GameRepositoryService {
 
   addGame(newGame: Omit<Game, 'id'>): Game {
     const maxId = Math.max.apply(Math, this.games.map(g => g.id))
-    const game: Game = { ...newGame, id: maxId + 1 }
+    const game: Game = { ...newGame, id: isFinite(maxId) ? maxId + 1 : 0 }
     this.games.push(game)
     this.games$.next(this.games)
     return game

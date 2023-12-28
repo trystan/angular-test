@@ -1,7 +1,7 @@
-<p>Games</p>
+<h4>Games</h4>
 <ul class="list-group list-group-flush">
   <li class="list-group-item list-group-item-action" *ngFor="let game of games$ | async">
-    <a class='game-title' [routerLink]="['games', game.id]">{{ game.title }}</a>
+    <a [routerLink]="['games', game.id]">{{ game.title }}</a>
   </li>
   <li class="list-group-item list-group-item-action">
     <a [routerLink]="'games/add'"><i class="bi bi-plus-circle"></i></a>

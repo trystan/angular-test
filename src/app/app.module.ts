@@ -9,13 +9,20 @@ import { AddGameComponent } from './components/add-game/add-game.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { GameDetailsEditComponent } from './components/game-details-edit/game-details-edit.component';
 import { NgbRatingModule } from '@ng-bootstrap/ng-bootstrap';
+import { SessionListComponent } from './components/session-list/session-list.component';
+import { SessionAddComponent } from './components/session-add/session-add.component';
+import { SessionDetailsComponent } from './components/session-details/session-details.component';
+import { SessionDetailsEditComponent } from './components/session-details-edit/session-details-edit.component';
 
 @NgModule({
     declarations: [
         AppComponent,
         GameDetailsComponent,
         AddGameComponent,
-        GameDetailsEditComponent
+        GameDetailsEditComponent,
+        SessionAddComponent,
+        SessionDetailsComponent,
+        SessionDetailsEditComponent
     ],
     providers: [],
     bootstrap: [AppComponent],
@@ -23,6 +30,7 @@ import { NgbRatingModule } from '@ng-bootstrap/ng-bootstrap';
         BrowserModule,
         AppRoutingModule,
         GameListComponent,
+        SessionListComponent,
         ReactiveFormsModule,
         NgbRatingModule
     ]

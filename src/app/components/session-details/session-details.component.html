@@ -1,0 +1,14 @@
+<div *ngIf="session == null">
+  <p>No session selected</p>
+</div>
+<div *ngIf="session !== null">
+  <a class="float-end" [routerLink]="['/sessions', session.id, 'edit']"><i class="bi bi-pencil-fill"></i></a>
+  
+  <h2>{{ session.title }}</h2>
+  <div>
+    Notes:
+    <div>
+      <div>{{ session.notes }}</div>
+    </div>
+  </div>
+</div>

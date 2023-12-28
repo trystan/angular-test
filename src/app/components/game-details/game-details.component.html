@@ -6,6 +6,8 @@
   
   <h2>{{ game.title }}</h2>
   <ngb-rating [max]="5" [(rate)]="game.starRating" [readonly]="true"></ngb-rating>
-  Notes:
+  <div>
+    Notes:
     <div>{{ game.notes }}</div>
+  </div>
 </div>

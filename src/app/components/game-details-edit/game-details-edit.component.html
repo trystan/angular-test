@@ -5,9 +5,12 @@
   <form [formGroup]="myForm" (ngSubmit)="onSubmit(myForm)">
     <input formControlName="title" />
     <ngb-rating formControlName="starRating" [max]="5" [(rate)]="game.starRating" [readonly]="false"></ngb-rating>
-    Notes:
+    
     <div>
-      <textarea formControlName="notes"></textarea>
+      Notes:
+      <div>
+        <textarea formControlName="notes"></textarea>
+      </div>
     </div>
 
     <div class="footer">

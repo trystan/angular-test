@@ -49,4 +49,12 @@ export class GameRepositoryService {
       this.games$.next(this.games)
     }
   }
+
+  deleteGame(gameId: number): void {
+    const index = this.games.findIndex(g => g.id === gameId)
+    if (index > -1) {
+      this.games.splice(index, 1)
+      this.games$.next(this.games)
+    }
+  }
 }

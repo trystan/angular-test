@@ -34,7 +34,7 @@ export class GameDetailsEditComponent {
   
   onSubmit(form: FormGroup) {
     if (form.valid) {
-      const game = this.repo.updateGame({
+      this.repo.updateGame({
         id: this.game!.id,
         title: form.value.title
       })
@@ -42,5 +42,10 @@ export class GameDetailsEditComponent {
     } else {
       // TODO
     }
+  }
+
+  deleteGame(): void {
+    this.repo.deleteGame(this.game!.id)
+    this.router.navigate([])
   }
 }

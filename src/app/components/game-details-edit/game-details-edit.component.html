@@ -3,17 +3,16 @@
 </div>
 <div *ngIf="game !== null">
   <form [formGroup]="myForm" (ngSubmit)="onSubmit(myForm)">
-    Title <input formControlName="title" />
+    <input formControlName="title" />
     <ngb-rating formControlName="starRating" [max]="5" [(rate)]="game.starRating" [readonly]="false"></ngb-rating>
-    <hr >
     Notes:
     <div>
       <textarea formControlName="notes"></textarea>
     </div>
 
     <div class="footer">
-      <button>submit</button>
-      <button type="button" (click)="deleteGame()">delete</button>
+      <button class="btn btn-primary">submit</button>
+      <button class="btn btn-danger" type="button" (click)="deleteGame()">delete</button>
     </div>
   </form>  
 </div>

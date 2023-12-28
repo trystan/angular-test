@@ -1,13 +1,12 @@
 <form [formGroup]="myForm" (ngSubmit)="onSubmit(myForm)">
-  Title <input formControlName="title" />
+  <input formControlName="title" placeholder="Title" />
   <ngb-rating formControlName="starRating" [max]="5" [readonly]="false"></ngb-rating>
-  <hr >
   Notes:
   <div>
     <textarea formControlName="notes"></textarea>
   </div>
 
   <div class="footer">
-    <button>submit</button>
+    <button class="btn btn-primary">submit</button>
   </div>
 </form>

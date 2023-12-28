@@ -2,4 +2,5 @@
 <div *ngFor="let game of games$ | async">
   <a class='game-title' [routerLink]="['games', game.id]" routerLinkActive="active">{{ game.title }}</a>
 </div>
+<hr />
 <a [routerLink]="'games/add'" routerLinkActive="active">Add</a>

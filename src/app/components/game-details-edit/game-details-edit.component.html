@@ -4,7 +4,13 @@
 <div *ngIf="game !== null">
   <form [formGroup]="myForm" (ngSubmit)="onSubmit(myForm)">
     Title <input formControlName="title" />
+    <hr >
+    Notes:
     <div>
+      <textarea formControlName="notes"></textarea>
+    </div>
+
+    <div class="footer">
       <button>submit</button>
       <button type="button" (click)="deleteGame()">delete</button>
     </div>

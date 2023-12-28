@@ -17,14 +17,16 @@ export class AddGameComponent implements OnInit {
 
   ngOnInit() {
     this.myForm = new FormGroup({
-      title: new FormControl('')
+      title: new FormControl(''),
+      notes: new FormControl('')
     });
   }
 
   onSubmit(form: FormGroup) {
     if (form.valid) {
       const game = this.repo.addGame({ 
-        title: form.value.title
+        title: form.value.title,
+        notes: form.value.notes
       })
       this.router.navigate(['/games', game.id]);
     } else {

@@ -6,7 +6,7 @@ import { Game } from 'src/app/models/game';
 @Component({
   selector: 'app-game-details',
   templateUrl: './game-details.component.html',
-  styleUrls: ['./game-details.component.scss']
+  styleUrls: ['./game-details.component.css']
 })
 export class GameDetailsComponent implements OnInit {
   public game: Game | null = null

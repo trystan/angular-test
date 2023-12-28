@@ -21,13 +21,15 @@ export class GameDetailsEditComponent {
 
   ngOnInit() {
     this.myForm = new FormGroup({
-      title: new FormControl('')
+      title: new FormControl(''),
+      notes: new FormControl('')
     });
 
     this.activatedRoute.params.subscribe((params: any) => {
       this.game = this.repo.getGame(parseInt(params.id, 10))
       this.myForm = new FormGroup({
-        title: new FormControl(this.game!.title)
+        title: new FormControl(this.game!.title),
+        notes: new FormControl(this.game!.notes)
       });
     })
   }
@@ -36,7 +38,8 @@ export class GameDetailsEditComponent {
     if (form.valid) {
       this.repo.updateGame({
         id: this.game!.id,
-        title: form.value.title
+        title: form.value.title,
+        notes: form.value.notes
       })
       this.router.navigate(['games', this.game!.id]);
     } else {

@@ -7,12 +7,18 @@ import { Observable, Subject } from 'rxjs';
 })
 export class GameRepositoryService {
   private games = [
-    { id: 0, title: 'Cosmic Encounter' },
-    { id: 1, title: 'For Sale' },
-    { id: 2, title: 'Gravwell' },
-    { id: 3, title: 'Root' },
-    { id: 4, title: 'Inis' },
-    { id: 5, title: 'Terraforming Mars' },
+    { id: 0, title: 'Cosmic Encounter',
+      notes: 'Our favorite game!' },
+    { id: 1, title: 'For Sale',
+      notes: 'A fast game that anyone can play.' },
+    { id: 2, title: 'Gravwell',
+      notes: 'A really neat racing game where everyone tries to second guess what everyone else will do.' },
+    { id: 3, title: 'Root',
+      notes: 'Asymetric dudes on a map.' },
+    { id: 4, title: 'Inis',
+      notes: 'Trippy artwork.' },
+    { id: 5, title: 'Terraforming Mars',
+      notes: 'Terraform mars.' },
   ]
 
   private games$ = new Subject<Game[]>()
@@ -34,9 +40,9 @@ export class GameRepositoryService {
     return this.games.find(g => g.id === id) ?? null
   }
 
-  addGame(newGame: { title: string }): Game {
+  addGame(newGame: Omit<Game, 'id'>): Game {
     const maxId = Math.max.apply(Math, this.games.map(g => g.id))
-    const game: Game = { id: maxId + 1, title: newGame.title }
+    const game: Game = { ...newGame, id: maxId + 1 }
     this.games.push(game)
     this.games$.next(this.games)
     return game

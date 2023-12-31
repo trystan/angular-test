@@ -13,4 +13,6 @@
   margin-bottom: 1em;
 }
 
+.error { color: #c33 }
+
 h4 { font-size: medium; display: inline-block; }

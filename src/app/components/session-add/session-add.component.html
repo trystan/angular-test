@@ -1,6 +1,9 @@
 <form [formGroup]="form" (ngSubmit)="onSubmit()">
-  <input formControlName="title" placeholder="Title" />
-  
+  <div>
+    <input formControlName="title" placeholder="Title" />
+    <span class="error" *ngIf="form.controls['title'].errors && form.controls['title'].errors['required']">required</span>
+  </div>
+
   <div class="notes">
     <textarea formControlName="notes"></textarea>
   </div>
@@ -11,8 +14,10 @@
         <div>
           <a (click)="removePlay(i)"><i class="bi bi-x-circle"></i></a>&nbsp;
           <h4><input formControlName="game" placeholder="Game" /></h4>
+          <span class="error" *ngIf="playForm.get('game')?.errors && playForm.get('game')!.errors!['required']">required</span>
         </div>
         <input formControlName="players" placeholder="Players" />
+        <span class="error" *ngIf="playForm.get('players')?.errors && playForm.get('players')!.errors!['required']">required</span>
         <div class="notes"><textarea formControlName="notes" placeholder="Notes"></textarea></div>
       </div>
     </div>
@@ -20,6 +25,6 @@
   <a (click)="addPlay()"><i class="bi bi-plus-circle"></i> add a game</a>
 
   <div class="footer">
-    <button class="btn btn-primary">submit</button>
+    <button class="btn btn-primary" [disabled]="!form.valid">submit</button>
   </div>
 </form>

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { GameRepositoryService } from 'src/app/services/game-repository.service';
 
@@ -9,26 +9,29 @@ import { GameRepositoryService } from 'src/app/services/game-repository.service'
   styleUrls: ['./add-game.component.css'],
 })
 export class AddGameComponent implements OnInit {
-  public myForm: FormGroup = new FormGroup({ }); // prevent warning
+  public form: FormGroup = new FormGroup({ }); // prevent warning
 
-  constructor(private router: Router, private repo: GameRepositoryService) {
+  constructor(
+      private router: Router,
+      private repo: GameRepositoryService,
+      private formBuilder: FormBuilder) {
 
   }
 
   ngOnInit() {
-    this.myForm = new FormGroup({
-      title: new FormControl(''),
-      starRating: new FormControl(1),
-      notes: new FormControl('')
-    });
+    this.form = this.formBuilder.group({
+      title: ['', Validators.required],
+      starRating: [1],
+      notes: ['']
+    })
   }
 
-  onSubmit(form: FormGroup) {
-    if (form.valid) {
+  onSubmit() {
+    if (this.form.valid) {
       const game = this.repo.addGame({ 
-        title: form.value.title,
-        starRating: form.value.starRating,
-        notes: form.value.notes
+        title: this.form.value.title,
+        starRating: this.form.value.starRating,
+        notes: this.form.value.notes
       })
       this.router.navigate(['/games', game.id]);
     } else {

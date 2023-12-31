@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Game } from 'src/app/models/game';
 import { GameRepositoryService } from 'src/app/services/game-repository.service';
@@ -11,38 +11,37 @@ import { GameRepositoryService } from 'src/app/services/game-repository.service'
 })
 export class GameDetailsEditComponent {
   public game: Game | null = null
-  public myForm: FormGroup = new FormGroup({ }); // prevent warning
+  public form: FormGroup = new FormGroup({ }); // prevent warning
 
   constructor(
       private router: Router,
       private activatedRoute: ActivatedRoute,
-      private repo: GameRepositoryService) {
+      private repo: GameRepositoryService,
+      private formBuilder: FormBuilder) {
   }
 
   ngOnInit() {
-    this.myForm = new FormGroup({
-      title: new FormControl(''),
-      starRating: new FormControl(1),
-      notes: new FormControl('')
-    });
+    this.form = this.formBuilder.group({
+      title: ['', Validators.required],
+      starRating: [1],
+      notes: ['']
+    })
 
     this.activatedRoute.params.subscribe((params: any) => {
       this.game = this.repo.getGame(parseInt(params.id, 10))
-      this.myForm = new FormGroup({
-        title: new FormControl(this.game!.title),
-        starRating: new FormControl(this.game!.starRating),
-        notes: new FormControl(this.game!.notes)
-      });
+      this.form.controls['title'].setValue(this.game!.title)
+      this.form.controls['starRating'].setValue(this.game!.starRating)
+      this.form.controls['notes'].setValue(this.game!.notes)
     })
   }
   
-  onSubmit(form: FormGroup) {
-    if (form.valid) {
+  onSubmit() {
+    if (this.form.valid) {
       this.repo.updateGame({
         id: this.game!.id,
-        title: form.value.title,
-        starRating: form.value.starRating,
-        notes: form.value.notes
+        title: this.form.value.title,
+        starRating: this.form.value.starRating,
+        notes: this.form.value.notes
       })
       this.router.navigate(['games', this.game!.id]);
     } else {

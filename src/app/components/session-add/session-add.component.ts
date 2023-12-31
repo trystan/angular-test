@@ -8,16 +8,14 @@ import { SessionRepositoryService } from 'src/app/services/session-repository.se
   templateUrl: './session-add.component.html',
   styleUrls: ['./session-add.component.css']
 })
-export class SessionAddComponent implements OnInit {
+export class SessionAddComponent {
   public form: FormGroup = new FormGroup({ }); // prevent warning
 
   constructor(
-    private router: Router,
-    private repo: SessionRepositoryService,
-    private formBuilder: FormBuilder) {
-  }
-
-  ngOnInit() {
+      private router: Router,
+      private repo: SessionRepositoryService,
+      private formBuilder: FormBuilder) {
+      
     this.form = this.formBuilder.group({
       title: ['', Validators.required],
       notes: [''],
@@ -31,7 +29,7 @@ export class SessionAddComponent implements OnInit {
 
   addPlay() {
     const playForm = this.formBuilder.group({
-      game: ['game', Validators.required],
+      game: ['', Validators.required],
       players: ['', Validators.required],
       notes: ['', []],
     })
@@ -47,13 +45,11 @@ export class SessionAddComponent implements OnInit {
       const session = this.repo.addSession({ 
         title: this.form.value.title,
         notes: this.form.value.notes,
-        plays: this.playsArray.value.map((playForm: any) => {
-          return {
-            game: playForm.game,
-            players: (playForm.players as string).split(',').map(p => p.trim()),
-            notes: playForm.notes
-          }
-        })
+        plays: this.playsArray.value.map((playForm: any) => ({
+          game: playForm.game,
+          players: (playForm.players as string).split(',').map(p => p.trim()),
+          notes: playForm.notes
+        }))
       })
       this.router.navigate(['/sessions', session.id]);
     } else {

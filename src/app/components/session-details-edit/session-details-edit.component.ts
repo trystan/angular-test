@@ -39,7 +39,8 @@ export class SessionDetailsEditComponent implements OnInit {
       this.repo.updateSession({
         id: this.session!.id,
         title: form.value.title,
-        notes: form.value.notes
+        notes: form.value.notes,
+        plays: []
       })
       this.router.navigate(['sessions', this.session!.id]);
     } else {

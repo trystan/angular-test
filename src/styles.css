@@ -8,3 +8,9 @@
 .active {
   background-color: #ccc;
 }
+
+.notes {
+  margin-bottom: 1em;
+}
+
+h4 { font-size: medium; display: inline-block; }

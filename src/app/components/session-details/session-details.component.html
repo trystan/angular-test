@@ -5,10 +5,10 @@
   <a class="float-end" [routerLink]="['/sessions', session.id, 'edit']"><i class="bi bi-pencil-fill"></i></a>
   
   <h2>{{ session.title }}</h2>
-  <div>
-    Notes:
-    <div>
-      <div>{{ session.notes }}</div>
-    </div>
+  <div class="notes">{{ session.notes }}</div>
+  
+  <div *ngFor="let play of session.plays">
+    <div><h4>{{ play.game }}</h4> {{ play.players.join(', ') }}</div>
+    <div class="notes">{{ play.notes }}</div>
   </div>
 </div>

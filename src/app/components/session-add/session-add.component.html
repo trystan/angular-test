@@ -1,12 +1,23 @@
-<form [formGroup]="myForm" (ngSubmit)="onSubmit(myForm)">
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
   <input formControlName="title" placeholder="Title" />
   
-  <div>
-    Notes:
-    <div>
-      <textarea formControlName="notes"></textarea>
+  <div class="notes">
+    <textarea formControlName="notes"></textarea>
+  </div>
+
+  <div formArrayName="plays">
+    <div *ngFor="let playForm of playsArray.controls; let i = index">
+      <div [formGroupName]="i">
+        <div>
+          <a (click)="removePlay(i)"><i class="bi bi-x-circle"></i></a>&nbsp;
+          <h4><input formControlName="game" placeholder="Game" /></h4>
+        </div>
+        <input formControlName="players" placeholder="Players" />
+        <div class="notes"><textarea formControlName="notes" placeholder="Notes"></textarea></div>
+      </div>
     </div>
   </div>
+  <a (click)="addPlay()"><i class="bi bi-plus-circle"></i> add a game</a>
 
   <div class="footer">
     <button class="btn btn-primary">submit</button>

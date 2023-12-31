@@ -8,6 +8,16 @@ import { Session } from '../models/session';
 export class SessionRepositoryService {
   private sessions: Session[] = [
     { id: 0, title: 'Pizza party',
+      plays: [
+      { game: 'For Sale',
+        players: ['Trystan', 'Rachel', 'Mark', 'Jess'], 
+        notes: 'A rare tie between Trystan and Rachel.'},
+      { game: 'For Sale',
+        players: ['Trystan', 'Rachel', 'Mark', 'Jess'], 
+        notes: 'Mark\'s "buy the cheepest property" strategy didn\'t work for him but Rachel managed to win by 1.'},
+      { game: 'Cosmic Encounter',
+        players: ['Trystan', 'Rachel', 'Mark', 'Melissa', 'Jess'], 
+        notes: 'A close game where Rachel and Jess won at the last minute with a negotiation.'}],
       notes: 'Some notes' },
   ]
 

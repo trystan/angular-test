@@ -13,6 +13,7 @@ import { SessionListComponent } from './components/session-list/session-list.com
 import { SessionAddComponent } from './components/session-add/session-add.component';
 import { SessionDetailsComponent } from './components/session-details/session-details.component';
 import { SessionDetailsEditComponent } from './components/session-details-edit/session-details-edit.component';
+import { WelcomeComponent } from './components/welcome/welcome.component';
 
 @NgModule({
     declarations: [
@@ -22,7 +23,8 @@ import { SessionDetailsEditComponent } from './components/session-details-edit/s
         GameDetailsEditComponent,
         SessionAddComponent,
         SessionDetailsComponent,
-        SessionDetailsEditComponent
+        SessionDetailsEditComponent,
+        WelcomeComponent
     ],
     providers: [],
     bootstrap: [AppComponent],

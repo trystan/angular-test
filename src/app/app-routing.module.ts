@@ -6,6 +6,7 @@ import { GameDetailsEditComponent } from './components/game-details-edit/game-de
 import { SessionDetailsComponent } from './components/session-details/session-details.component';
 import { SessionAddComponent } from './components/session-add/session-add.component';
 import { SessionDetailsEditComponent } from './components/session-details-edit/session-details-edit.component';
+import { WelcomeComponent } from './components/welcome/welcome.component';
 
 const routes: Routes = [
   { path: 'games/add', component: AddGameComponent },
@@ -13,7 +14,8 @@ const routes: Routes = [
   { path: 'games/:id', component: GameDetailsComponent },
   { path: 'sessions/add', component: SessionAddComponent },
   { path: 'sessions/:id/edit', component: SessionDetailsEditComponent },
-  { path: 'sessions/:id', component: SessionDetailsComponent }
+  { path: 'sessions/:id', component: SessionDetailsComponent },
+  { path: '', component: WelcomeComponent }
 ];
 
 @NgModule({

@@ -7,7 +7,7 @@ export interface Play {
 export interface Session {
   id: number
   title: string
-  // date: Date
+  date: Date
   notes: string
   plays: Play[]
 }

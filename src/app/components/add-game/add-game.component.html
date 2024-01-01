@@ -1,6 +1,7 @@
 <form [formGroup]="form" (ngSubmit)="onSubmit()">
   <div>
-    <input formControlName="title" placeholder="Title" />
+    <label for="title" class="form-label">Title</label>
+    <input id="title" type="text" class="form-control" formControlName="title" />
     <span class="error" *ngIf="form.controls['title'].errors && form.controls['title'].errors['required']">required</span>
   </div>
 
@@ -8,8 +9,11 @@
     <ngb-rating formControlName="starRating" [max]="5" [readonly]="false"></ngb-rating>
   </div>
 
-  <div>
-    <textarea formControlName="notes"></textarea>
+  <div class="notes">
+    <label for="notes" class="form-label">Notes</label>
+    <div>
+      <textarea id="notes" class="form-control" formControlName="notes"></textarea>
+    </div>
   </div>
 
   <div class="footer">

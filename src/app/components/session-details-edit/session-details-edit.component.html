@@ -1,24 +1,50 @@
 <form [formGroup]="form" (ngSubmit)="onSubmit()">
   <div>
-    <input formControlName="title" placeholder="Title" />
-    <span class="error" *ngIf="form.controls['title'].errors && form.controls['title'].errors['required']">required</span>
+    Title: <input class="form-control" formControlName="title" placeholder="Title" />
+    <span class="error form-text" *ngIf="form.controls['title'].errors && form.controls['title'].errors['required']">required</span>
   </div>
   
   <div>
-    <textarea formControlName="notes"></textarea>
+    <div class="input-group" style="width: 14em">
+      Date: <input
+          class="form-control"
+          placeholder="yyyy-mm-dd"
+          name="dp"
+          formControlName="date"
+          ngbDatepicker
+          #d="ngbDatepicker"
+        />
+      <button class="btn btn-outline-secondary bi bi-calendar3" (click)="d.toggle()" type="button"></button>
+    </div>
+    <span class="error form-text" *ngIf="form.controls['date'].errors && form.controls['date'].errors['required']">required</span>
   </div>
 
+  <div class="notes">
+    <label for="notes" class="form-label">Notes</label>
+    <div>
+      <textarea id="notes" class="form-control" formControlName="notes"></textarea>
+    </div>
+  </div>
+
+  <h3>Games played:</h3>
   <div formArrayName="plays">
-    <div *ngFor="let playForm of playsArray.controls; let i = index">
+    <div class="play" *ngFor="let playForm of playsArray.controls; let i = index">
       <div [formGroupName]="i">
         <div>
-          <a (click)="removePlay(i)"><i class="bi bi-x-circle"></i></a>&nbsp;
-          <h4><input formControlName="game" placeholder="Game" /></h4>
-          <span class="error" *ngIf="playForm.get('game')?.errors && playForm.get('game')!.errors!['required']">required</span>
+          <a class="float-end" (click)="removePlay(i)"><i class="bi bi-x-circle"></i></a>
+          <label for="game-{{i}}" class="form-label">Game</label>
+          <input id="game-{{i}}" class="form-control" formControlName="game" />
+          <span class="error form-text" *ngIf="playForm.get('game')?.errors && playForm.get('game')!.errors!['required']">required</span>
         </div>
-        <input formControlName="players" placeholder="Players" />
-        <span class="error" *ngIf="playForm.get('players')?.errors && playForm.get('players')!.errors!['required']">required</span>
-        <div class="notes"><textarea formControlName="notes" placeholder="Notes"></textarea></div>
+        <label for="players-{{i}}" class="form-label">Players</label>
+        <input id="players-{{i}}" class="form-control" formControlName="players" />
+        <span class="error form-text" *ngIf="playForm.get('players')?.errors && playForm.get('players')!.errors!['required']">required</span>
+        <div class="notes">
+          <label for="notes-{{i}}" class="form-label">Notes</label>
+          <div>
+            <textarea id="notes-{{i}}" class="form-control" formControlName="notes"></textarea>
+          </div>
+        </div>
       </div>
     </div>
   </div>

@@ -19,8 +19,10 @@ export class SessionDetailsEditComponent implements OnInit {
       private repo: SessionRepositoryService,
       private formBuilder: FormBuilder) {
 
+    const today = new Date()
     this.form = this.formBuilder.group({
-      title: ['', Validators.required],
+      title: [null, Validators.required],
+      date: [null, Validators.required],
       notes: [''],
       plays: this.formBuilder.array([])
     })
@@ -29,23 +31,28 @@ export class SessionDetailsEditComponent implements OnInit {
   ngOnInit() {
     this.activatedRoute.params.subscribe((params: any) => {
       this.session = this.repo.getSession(parseInt(params.id, 10))
-      this.form = this.formBuilder.group({
-        title: [this.session!.title, Validators.required],
-        notes: [this.session!.notes, Validators.required],
-        plays: this.formBuilder.array(this.session!.plays.map(p => this.formBuilder.group({
-          game: [p.game, Validators.required],
-          players: [p.players.join(', '), Validators.required],
-          notes: [p.notes, []]
-        })))
-      });
+      if (this.session) {
+        this.form = this.formBuilder.group({
+          title: [this.session.title, Validators.required],
+          date: [{ year: this.session.date.getFullYear(), month: this.session.date.getMonth() + 1, day: this.session.date.getDay() }, Validators.required],
+          notes: [this.session!.notes, Validators.required],
+          plays: this.formBuilder.array(this.session.plays.map(p => this.formBuilder.group({
+            game: [p.game, Validators.required],
+            players: [p.players.join(', '), Validators.required],
+            notes: [p.notes, []]
+          })))
+        });
+      }
     })
   }
   
   onSubmit() {
     if (this.session && this.form.valid) {
+      const date = this.form.value.date
       const session = this.repo.updateSession({
         id: this.session!.id,
         title: this.form.value.title,
+        date: new Date(date.year, date.month - 1, date.day),
         notes: this.form.value.notes,
         plays: this.playsArray.value.map((playForm: any) => ({
           game: playForm.game,

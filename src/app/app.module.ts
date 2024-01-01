@@ -8,7 +8,7 @@ import { GameListComponent } from "./components/game-list/game-list.component";
 import { AddGameComponent } from './components/add-game/add-game.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { GameDetailsEditComponent } from './components/game-details-edit/game-details-edit.component';
-import { NgbRatingModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDatepickerModule, NgbRatingModule } from '@ng-bootstrap/ng-bootstrap';
 import { SessionListComponent } from './components/session-list/session-list.component';
 import { SessionAddComponent } from './components/session-add/session-add.component';
 import { SessionDetailsComponent } from './components/session-details/session-details.component';
@@ -32,7 +32,8 @@ import { SessionDetailsEditComponent } from './components/session-details-edit/s
         GameListComponent,
         SessionListComponent,
         ReactiveFormsModule,
-        NgbRatingModule
+        NgbRatingModule,
+        NgbDatepickerModule
     ]
 })
 export class AppModule { }

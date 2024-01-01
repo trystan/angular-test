@@ -1,5 +1,4 @@
 textarea {
-  width: 90%;
   height: 5em;
   vertical-align: top;
 }
@@ -8,4 +7,9 @@ textarea {
   margin-top: 2em;
   display: flex;
   gap: 5px;
+}
+
+.play {
+  margin-top: 1em;
+  border-bottom: 1px solid black;
 }

@@ -28,10 +28,14 @@ export class GameDetailsEditComponent {
     })
 
     this.activatedRoute.params.subscribe((params: any) => {
-      this.game = this.repo.getById(parseInt(params.id, 10))
-      this.form.controls['title'].setValue(this.game!.title)
-      this.form.controls['starRating'].setValue(this.game!.starRating)
-      this.form.controls['notes'].setValue(this.game!.notes)
+      this.repo.getById(Number(params.id)).subscribe(game => {
+        this.game = game
+        if (this.game) {
+          this.form.controls['title'].setValue(this.game.title)
+          this.form.controls['starRating'].setValue(this.game.starRating)
+          this.form.controls['notes'].setValue(this.game.notes)
+        }
+      })
     })
   }
   

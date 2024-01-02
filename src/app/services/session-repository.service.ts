@@ -1,63 +1,71 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Session } from '../models/session';
-import { InMemoryRepository } from './in-memory-repository.service';
+import { HttpClient } from '@angular/common/http';
+
+const convertStringToDate = (value: string | Date) => {
+  const realValue = typeof value === 'string' ? value : value.toJSON().split('T')[0]
+  const [y,m,d] = realValue.split('-')
+  return new Date(Number(y), Number(m) - 1, Number(d))
+}
 
 @Injectable({
   providedIn: 'root'
 })
 export class SessionRepositoryService {
-  constructor(private repository: InMemoryRepository<Session>) {
-    this.repository.load([
-      { id: 0, title: 'Pizza party',
-        date: new Date(2023, 10, 19),
-        plays: [
-        { game: 'For Sale',
-          players: ['Trystan', 'Rachel', 'Mark', 'Jess'], 
-          notes: 'A rare tie between Trystan and Rachel.'},
-        { game: 'For Sale',
-          players: ['Trystan', 'Rachel', 'Mark', 'Jess'], 
-          notes: 'Mark\'s "buy the cheepest property" strategy didn\'t work for him but Rachel managed to win by 1.'},
-        { game: 'Cosmic Encounter',
-          players: ['Trystan', 'Rachel', 'Mark', 'Melissa', 'Jess'], 
-          notes: 'A close game where Rachel and Jess won at the last minute with a negotiation.'}],
-        notes: 'Some notes' },
-      { id: 1, title: 'Trystan plays alone',
-        date: new Date(2023, 11, 17),
-        plays: [
-        { game: 'Race For The Galaxy',
-          players: ['Trystan'], 
-          notes: 'Trystan lost his first game vs 2 ai opponents.'},
-        { game: 'Race For The Galaxy',
-          players: ['Trystan'], 
-          notes: 'Trystan won his second game vs 2 ai opponents with a strong Novel World trade strategy.'},
-        { game: 'Terraforming Mars',
-          players: ['Trystan'], 
-          notes: 'Trystan just barely won vs 2 ai players by focusing on cities, forests, and space projects because of all the free titanium.'},
-        { game: 'Matgic The Gathering (Arena)',
-          players: ['Trystan'], 
-          notes: 'Trystan somehow defeated an another player using a premade red/white deck with strange equiment synergies.'}],
-        notes: 'December is busy and no one was able to make it to today\'s boardgame day. Rachel and Trystan had to drink all the USS Richmond punch on their own.' },
-    ])
+  private data: Session[] = []
+
+  private data$ = new BehaviorSubject<Session[]>(this.data)
+
+  constructor(private httpClient: HttpClient) {
+    this.httpClient
+      .get<{ data: Session[] }>('/assets/sessions.json')
+      .subscribe(response => {
+        response.data.forEach(session => {
+          session.date = convertStringToDate(session.date)
+        })
+        this.data = response.data
+        this.data$.next(this.data)
+      })
   }
 
-  getSessions(): Observable<Session[]> {
-    return this.repository.getAll()
+  getAll(): Observable<Session[]> {
+    return this.data$
   }
   
-  getSession(id: number): Session | null {
-    return this.repository.getById(id)
+  // Observable because this might be called before the data is loaded and needs to be updated.
+  // Not sure if this is the Angular way to do this...
+  getById(id: number): Observable<Session | null> {
+    const existing = this.data.find(s => s.id === id) ?? null
+    const subject = new BehaviorSubject<Session | null>(existing ? { ...existing } : null)
+    this.data$.subscribe(values => {
+      const newValue = values.find(s => s.id === id) ?? null
+      subject.next(newValue ? { ...newValue } : null)
+    })
+    return subject
   }
   
-  addSession(newSession: Omit<Session, 'id'>): Session {
-    return this.repository.add(newSession)
+  add(source: Omit<Session, 'id'>): Session {
+    const maxId = Math.max.apply(Math, this.data.map(g => g.id))
+    const session: Session = ({ ...source, id: isFinite(maxId) ? maxId + 1 : 0 } as any)
+    this.data.push(session)
+    this.data$.next(this.data)
+    return { ...session }
   }
 
-  updateSession(session: Session): void {
-    this.repository.update(session)
+  update(session: Session): void {
+    const index = this.data.findIndex(g => g.id === session.id)
+    if (index > -1) {
+      this.data.splice(index, 1, session)
+      this.data$.next(this.data)
+    }
   }
 
-  deleteSession(sessionId: number): void {
-    this.repository.deleteById(sessionId)
+  deleteById(id: number): void {
+    const index = this.data.findIndex(g => g.id === id)
+    if (index > -1) {
+      this.data.splice(index, 1)
+      this.data$.next(this.data)
+    }
   }
 }

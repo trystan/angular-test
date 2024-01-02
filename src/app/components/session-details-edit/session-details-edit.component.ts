@@ -30,26 +30,29 @@ export class SessionDetailsEditComponent implements OnInit {
 
   ngOnInit() {
     this.activatedRoute.params.subscribe((params: any) => {
-      this.session = this.repo.getSession(parseInt(params.id, 10))
-      if (this.session) {
-        this.form = this.formBuilder.group({
-          title: [this.session.title, Validators.required],
-          date: [{ year: this.session.date.getFullYear(), month: this.session.date.getMonth() + 1, day: this.session.date.getDay() }, Validators.required],
-          notes: [this.session!.notes, Validators.required],
-          plays: this.formBuilder.array(this.session.plays.map(p => this.formBuilder.group({
-            game: [p.game, Validators.required],
-            players: [p.players.join(', '), Validators.required],
-            notes: [p.notes, []]
-          })))
-        });
-      }
+      this.repo.getById(Number(params.id)).subscribe(session => {
+        this.session = session
+        if (this.session) {
+          const dateObject = { year: this.session.date.getUTCFullYear(), month: this.session.date.getUTCMonth() + 1, day: this.session.date.getUTCDate() }
+          this.form = this.formBuilder.group({
+            title: [this.session.title, Validators.required],
+            date: [dateObject, Validators.required],
+            notes: [this.session!.notes, Validators.required],
+            plays: this.formBuilder.array(this.session.plays.map(p => this.formBuilder.group({
+              game: [p.game, Validators.required],
+              players: [p.players.join(', '), Validators.required],
+              notes: [p.notes, []]
+            })))
+          });
+        }
+      })
     })
   }
   
   onSubmit() {
     if (this.session && this.form.valid) {
       const date = this.form.value.date
-      const session = this.repo.updateSession({
+      this.repo.update({
         id: this.session!.id,
         title: this.form.value.title,
         date: new Date(date.year, date.month - 1, date.day),
@@ -67,7 +70,7 @@ export class SessionDetailsEditComponent implements OnInit {
   }
 
   deleteSession(): void {
-    this.repo.deleteSession(this.session!.id)
+    this.repo.deleteById(this.session!.id)
     this.router.navigate(['/'])
   }
   

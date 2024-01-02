@@ -18,7 +18,9 @@ export class SessionDetailsComponent implements OnInit {
 
   ngOnInit() {
     this.activatedRoute.params.subscribe((params: any) => {
-      this.session = this.repo.getSession(parseInt(params.id, 10))
+      this.repo.getById(Number(params.id)).subscribe(session => {
+        this.session = session
+      })
     })
   }
 }

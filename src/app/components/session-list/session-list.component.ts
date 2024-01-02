@@ -19,7 +19,6 @@ export class SessionListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.sessions$ = this.repo.getSessions()
+    this.sessions$ = this.repo.getAll()
   }
-
 }

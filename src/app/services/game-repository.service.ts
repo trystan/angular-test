@@ -21,12 +21,19 @@ export class GameRepositoryService {
   }
 
   getAll(): Observable<Game[]> {
-    return this.data$ // .asObservable()
+    return this.data$
   }
   
-  getById(id: number): Game | null {
+  // Observable because this might be called before the data is loaded and needs to be updated.
+  // Not sure if this is the Angular way to do this...
+  getById(id: number): Observable<Game | null> {
     const existing = this.data.find(s => s.id === id) ?? null
-    return existing ? { ...existing } : null
+    const subject = new BehaviorSubject<Game | null>(existing ? { ...existing } : null)
+    this.data$.subscribe(values => {
+      const newValue = values.find(s => s.id === id) ?? null
+      subject.next(newValue ? { ...newValue } : null)
+    })
+    return subject
   }
   
   add(source: Omit<Game, 'id'>): Game {

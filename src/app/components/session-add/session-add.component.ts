@@ -45,7 +45,7 @@ export class SessionAddComponent {
   onSubmit() {
     if (this.form.valid) {
       const date = this.form.value.date
-      const session = this.repo.addSession({ 
+      const session = this.repo.add({ 
         title: this.form.value.title,
         date: new Date(date.year, date.month - 1, date.day),
         notes: this.form.value.notes,

@@ -4,10 +4,13 @@ This is a simple way to track boardgames and when they were played. Mostly a way
 
 Concepts used:
 
+- `ng` cli
 - Components & templates
+- Component lifecycle hook: `ngOnInit`
 - Services
-- DI
+- DI & NgModules
 - Routing
+- `angular-bootstrap` npm package
 - Reactive Forms
   - Nested form groups
   - Nested form arrays

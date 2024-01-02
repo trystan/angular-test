@@ -10,7 +10,7 @@ Concepts used:
 - Services
 - DI & NgModules
 - Routing and `ActivatedRoute`
-- `angular-bootstrap` npm package
+- `ng-bootstrap` and components
 - Reactive Forms and `FormBuilder`
   - Nested form groups
   - Nested form arrays

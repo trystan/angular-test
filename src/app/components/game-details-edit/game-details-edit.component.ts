@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { Game } from 'src/app/models/game';
 import { GameRepositoryService } from 'src/app/services/game-repository.service';
 
@@ -9,9 +10,11 @@ import { GameRepositoryService } from 'src/app/services/game-repository.service'
   templateUrl: './game-details-edit.component.html',
   styleUrls: ['./game-details-edit.component.css']
 })
-export class GameDetailsEditComponent {
+export class GameDetailsEditComponent implements OnInit, OnDestroy {
   public game: Game | null = null
   public form: FormGroup = new FormGroup({ }); // prevent warning
+  private routeSub: Subscription | null = null
+  private gameSub: Subscription | null = null
 
   constructor(
       private router: Router,
@@ -27,8 +30,8 @@ export class GameDetailsEditComponent {
       notes: ['']
     })
 
-    this.activatedRoute.params.subscribe((params: any) => {
-      this.repo.getById(Number(params.id)).subscribe(game => {
+    this.routeSub = this.activatedRoute.params.subscribe((params: any) => {
+      this.gameSub = this.repo.getById(Number(params.id)).subscribe(game => {
         this.game = game
         if (this.game) {
           this.form.controls['title'].setValue(this.game.title)
@@ -39,6 +42,15 @@ export class GameDetailsEditComponent {
     })
   }
   
+  ngOnDestroy(): void {
+    if (this.routeSub) {
+      this.routeSub.unsubscribe()
+    }
+    if (this.gameSub) {
+      this.gameSub.unsubscribe()
+    }
+  }
+
   onSubmit() {
     if (this.form.valid) {
       this.repo.update({

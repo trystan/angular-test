@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder, FormArray } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { Session } from 'src/app/models/session';
 import { SessionRepositoryService } from 'src/app/services/session-repository.service';
 
@@ -9,9 +10,11 @@ import { SessionRepositoryService } from 'src/app/services/session-repository.se
   templateUrl: './session-details-edit.component.html',
   styleUrls: ['./session-details-edit.component.css']
 })
-export class SessionDetailsEditComponent implements OnInit {
+export class SessionDetailsEditComponent implements OnInit, OnDestroy {
   public session: Session | null = null
   public form: FormGroup
+  private routeSub: Subscription | null = null
+  private sessionSub: Subscription | null = null
 
   constructor(
       private router: Router,
@@ -29,8 +32,8 @@ export class SessionDetailsEditComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.activatedRoute.params.subscribe((params: any) => {
-      this.repo.getById(Number(params.id)).subscribe(session => {
+    this.routeSub = this.activatedRoute.params.subscribe((params: any) => {
+      this.sessionSub = this.repo.getById(Number(params.id)).subscribe(session => {
         this.session = session
         if (this.session) {
           const dateObject = { year: this.session.date.getUTCFullYear(), month: this.session.date.getUTCMonth() + 1, day: this.session.date.getUTCDate() }
@@ -47,6 +50,15 @@ export class SessionDetailsEditComponent implements OnInit {
         }
       })
     })
+  }
+  
+  ngOnDestroy(): void {
+    if (this.routeSub) {
+      this.routeSub.unsubscribe()
+    }
+    if (this.sessionSub) {
+      this.sessionSub.unsubscribe()
+    }
   }
   
   onSubmit() {

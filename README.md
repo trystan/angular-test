@@ -5,17 +5,17 @@ This is a simple way to track boardgames and when they were played. Mostly a way
 Concepts used:
 
 - `ng` cli
-- Components & templates
-- Component lifecycle hook: `ngOnInit`
+- Components, templates, and events
+- Component lifecycle hooks: `OnInit`, `OnDestroy`
 - Services
 - DI & NgModules
-- Routing
+- Routing and `ActivatedRoute`
 - `angular-bootstrap` npm package
-- Reactive Forms
+- Reactive Forms and `FormBuilder`
   - Nested form groups
   - Nested form arrays
-- Observables and Subjects
-- HttpClient
+- RxJS: `Observable`, `Subject`, `BehaviorSubject`
+- `HttpClient`
 
 Features:
 

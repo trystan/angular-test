@@ -18,7 +18,7 @@ export class GameDetailsComponent implements OnInit {
 
   ngOnInit() {
     this.activatedRoute.params.subscribe((params: any) => {
-      this.game = this.repo.getGame(parseInt(params.id, 10))
+      this.game = this.repo.getById(parseInt(params.id, 10))
     })
   }
 }

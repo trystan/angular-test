@@ -1,29 +1,38 @@
-import { Observable, Subject } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { BehaviorSubject, Observable } from 'rxjs';
 
+@Injectable({
+  providedIn: 'root'
+})
 export class InMemoryRepository<T extends { id: number }> {
   private data: T[] = []
 
-  private data$ = new Subject<T[]>()
+  private data$ = new BehaviorSubject<T[]>([])
 
-  constructor(initialData?: T[]) {
-    if (initialData) {
-      this.data = initialData
-      
-      // HACK: Not sure why this didn't work without setTimeout. But I don't feel
-      // too bad since if this was a real service this would be async and rely on
-      // a REST endpoint or something.
-      setTimeout(() => {
-        this.data$.next(this.data)
-      }, 1);
-    }
+  constructor(private httpClient: HttpClient) {
+  }
+
+  load(data: T[]): void {
+    this.data = data
+    this.data$.next(this.data)
+  }
+
+  loadFromFile(url: string): void {
+    this.httpClient
+      .get<{ data: T[] }>(url)
+      .subscribe(response => {
+        this.load(response.data)
+      })
   }
 
   getAll(): Observable<T[]> {
-    return this.data$
+    return this.data$ // .asObservable()
   }
   
   getById(id: number): T | null {
-    return this.data.find(s => s.id === id) ?? null
+    const existing = this.data.find(s => s.id === id) ?? null
+    return existing ? { ...existing } : null
   }
   
   add(source: Omit<T, 'id'>): T {
@@ -31,7 +40,7 @@ export class InMemoryRepository<T extends { id: number }> {
     const newThing: T = ({ ...source, id: isFinite(maxId) ? maxId + 1 : 0 } as any)
     this.data.push(newThing)
     this.data$.next(this.data)
-    return newThing
+    return { ...newThing }
   }
 
   update(thing: T): void {

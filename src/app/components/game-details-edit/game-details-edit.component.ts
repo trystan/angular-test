@@ -28,7 +28,7 @@ export class GameDetailsEditComponent {
     })
 
     this.activatedRoute.params.subscribe((params: any) => {
-      this.game = this.repo.getGame(parseInt(params.id, 10))
+      this.game = this.repo.getById(parseInt(params.id, 10))
       this.form.controls['title'].setValue(this.game!.title)
       this.form.controls['starRating'].setValue(this.game!.starRating)
       this.form.controls['notes'].setValue(this.game!.notes)
@@ -37,7 +37,7 @@ export class GameDetailsEditComponent {
   
   onSubmit() {
     if (this.form.valid) {
-      this.repo.updateGame({
+      this.repo.update({
         id: this.game!.id,
         title: this.form.value.title,
         starRating: this.form.value.starRating,
@@ -50,7 +50,7 @@ export class GameDetailsEditComponent {
   }
 
   deleteGame(): void {
-    this.repo.deleteGame(this.game!.id)
+    this.repo.deleteById(this.game!.id)
     this.router.navigate(['/'])
   }
 }

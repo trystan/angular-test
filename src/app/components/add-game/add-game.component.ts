@@ -28,7 +28,7 @@ export class AddGameComponent implements OnInit {
 
   onSubmit() {
     if (this.form.valid) {
-      const game = this.repo.addGame({ 
+      const game = this.repo.add({ 
         title: this.form.value.title,
         starRating: this.form.value.starRating,
         notes: this.form.value.notes

@@ -19,6 +19,6 @@ export class GameListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.games$ = this.repo.getGames()
+    this.games$ = this.repo.getAll()
   }
 }

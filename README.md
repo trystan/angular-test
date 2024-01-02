@@ -1,6 +1,20 @@
 # BoardgameTracker
 
-This is simple way to track boardgames and when they were played. Mostly a way to learn angular 15.
+This is a simple way to track boardgames and when they were played. Mostly a way to learn angular 15.
+
+Concepts used:
+
+- Components & templates
+- Services
+- DI
+- Routing
+- Reactive Forms
+  - Nested form groups
+  - Nested form arrays
+- Observables and Subjects
+- HttpClient
+
+Features:
 
 - [x] List of known boardgames
 - [x] View boardgame
@@ -15,6 +29,6 @@ This is simple way to track boardgames and when they were played. Mostly a way t
 - [x] Edit a session
 - [x] Load games & sessions from json file with HttpClient
 - [ ] Save games & sessions in LocalStorage
-- [ ] Forms & validation
+- [x] Forms & validation
 - [ ] Material
 - [ ] Actually do some testing
